@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Упражнения - Workout Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .exercises-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .nav-buttons {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .nav-btn.logout {
+            background-color: #dc3545;
+        }
+
+        .nav-btn.logout:hover {
+            background-color: #c82333;
+        }
+
+        .add-exercise-form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #dee2e6;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+
+        .exercises-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .exercise-item {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .exercise-item h3 {
+            margin-top: 0;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .exercise-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .detail-field {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            color: #333;
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-delete,
+        .btn-edit {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+
+        .message {
+            padding: 12px 20px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .filter-section label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .filter-section input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .exercise-details {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="exercises-container">
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="window.location.href='index.html'">📅 Календарь</button>
+            <button class="nav-btn" onclick="window.location.href='exercises.html'">💪 Упражнения</button>
+            <button class="nav-btn logout" onclick="handleLogout()">🚪 Выход</button>
+        </div>
+
+        <h1>Список Упражнений</h1>
+
+        <div id="message" class="message"></div>
+
+        <div class="add-exercise-form">
+            <h2>Добавить новое упражнение</h2>
+            <form id="exerciseForm">
+                <div class="form-group">
+                    <label for="exerciseName">Название упражнения:</label>
+                    <input type="text" id="exerciseName" required placeholder="Например: Отжимания, Приседания...">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sets">Подходы:</label>
+                        <input type="number" id="sets" min="1" max="10" value="3" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reps">Повторения:</label>
+                        <input type="number" id="reps" min="1" max="100" value="10" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="weight">Вес (кг) - опционально:</label>
+                        <input type="number" id="weight" min="0" step="0.5" placeholder="Оставьте пустым если не нужен">
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Дата:</label>
+                        <input type="date" id="date" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Заметки:</label>
+                    <textarea id="notes" placeholder="Дополнительная информация об упражнении..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Добавить упражнение</button>
+            </form>
+        </div>
+
+        <div class="filter-section">
+            <label for="searchFilter">Поиск:</label>
+            <input type="text" id="searchFilter" placeholder="Поиск по названию...">
+        </div>
+
+        <div id="exercisesList" class="exercises-list"></div>
+    </div>
+
+    <script src="config/supabase-init.js"></script>
+    <script src="js/exercises.js"></script>
+</body>
+</html>
