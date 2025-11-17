@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,11 @@
 <body>
     <div class="container">
         <header>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="window.location.href='index.html'"́📅 Календарь</button>
+                <button class="nav-btn" onclick="window.location.href='exercises.html'"́💪 Упражнения</button>
+                <button class="nav-btn logout" onclick="handleLogout()"́🚪 Выход</button>
+            </div>
             <h1>Workout Tracker</h1>
             <div class="user-info">
                 <span id="username">User</span>
@@ -19,19 +24,20 @@
         <main>
             <!-- Calendar Section -->
             <section class="calendar-section">
+                <h2>Календарь</h2>
                 <div class="month-navigation">
-                    <button id="prev-month" class="btn btn-small">&lt;</button>
-                    <h2 id="month-year">January 2024</h2>
-                    <button id="next-month" class="btn btn-small">&gt;</button>
+                    <button id="prev-month" class="btn btn-small">&laquo;</button>
+                    <h3 id="month-year">January 2024</h3>
+                    <button id="next-month" class="btn btn-small">&raquo;</button>
                 </div>
                 <div id="calendar" class="calendar"></div>
             </section>
 
             <!-- Weight Section -->
             <section class="weight-section">
-                <h2>Weight Tracking</h2>
+                <h2>Отслеживание Веса</h2>
                 <div class="weight-input-group">
-                    <input type="number" id="weight-input" placeholder="Enter weight (kg)" step="0.1">
+                    <input type="number" id="weight-input" placeholder="Введите вес (кг)" step="0.1">
                     <input type="date" id="weight-date">
                     <button id="add-weight-btn" class="btn btn-primary">Add Weight</button>
                 </div>
@@ -40,7 +46,6 @@
         </main>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config/supabase-init.js"></script>
     <script src="js/auth.js"></script>
